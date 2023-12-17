@@ -1,4 +1,8 @@
----
+
+
+orbs:
+  ruby: circleci/ruby@1.2.0
+
 jobs:
   build_android:
     docker:
@@ -11,13 +15,31 @@ jobs:
       - run:
           name: Build the Android version
           command: flutter build apk --build-number=$CIRCLE_BUILD_NUM
-      - store_artifacts:
-          path: build/app/outputs/flutter-apk/app-release.apk 
+      - run:
+          name: Build the Android version
+          command: flutter build apk --build-number=$CIRCLE_BUILD_NUM
+
+
+  upload_firebase:
+    steps:
+      - ruby/install-deps
+      - run:
+          name: fastlane
+          command: bundle exec fastlane upload_firebase
+
+
 workflows:
-  version: 2
+  version: 2.1
   build:
     jobs:
       - build_android:
+          filters:
+            branches:
+              only: master
+
+      - publish-latest:
+          requires:
+            - build_android
           filters:
             branches:
               only: master

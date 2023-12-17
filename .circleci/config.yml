@@ -12,7 +12,13 @@ jobs:
       - run:
           name: Run Flutter doctor
           command: flutter doctor
+      - run:
+          name: Build the Android version
+          command: flutter build apk --build-number=$CIRCLE_BUILD_NUM
       - ruby/install-deps
+      - run:
+          name: fastlane
+          command: cd android && bundle exec fastlane upload_firebase
 workflows:
   version: 2
   build:

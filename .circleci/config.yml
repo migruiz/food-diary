@@ -18,7 +18,10 @@ jobs:
       - ruby/install-deps
       - run:
           name: fastlane
-          command: bundle exec fastlane upload_firebase
+          command: |
+            echo $SA_KEY > android/app/firebase_login_credentials.json
+            bundle exec fastlane upload_firebase
+            
 workflows:
   version: 2
   build:

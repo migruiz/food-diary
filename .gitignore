@@ -44,3 +44,4 @@ app.*.map.json
 android/app/google-services.json
 android/fastlane/README.md
 android/fastlane/report.xml
+android/app/firebase_login_credentials.json

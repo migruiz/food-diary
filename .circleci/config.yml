@@ -19,7 +19,7 @@ jobs:
       - run:
           name: fastlane
           command: |
-            echo $SA_KEY > android/app/firebase_login_credentials.json
+            echo $FB_LOGIN_KEY > android/app/firebase_login_credentials.json
             bundle exec fastlane upload_firebase
             
 workflows:

@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCYkYSPUhRyaz1pqbguINmjaQdlui9te7k',
-    appId: '1:1084114691839:android:16b5ed0f7ba19a65c98eca',
+    appId: '1:1084114691839:android:5e64f2a9f45fa69cc98eca',
     messagingSenderId: '1084114691839',
     projectId: 'food-diary-5fc03',
     storageBucket: 'food-diary-5fc03.appspot.com',

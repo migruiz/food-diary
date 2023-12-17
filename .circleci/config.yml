@@ -17,7 +17,7 @@ jobs:
           name: fastlane
           command: |
             echo $FB_LOGIN_KEY > android/app/firebase_login_credentials.json
-            echo GIT_COMMIT_DESC
+            echo %GIT_COMMIT_DESC
             bundle exec fastlane upload_firebase
           environment:
             GIT_COMMIT_DESC: $(git log --format=oneline -n 1 $CIRCLE_SHA1)

@@ -22,7 +22,8 @@ platform :android do
     release = firebase_app_distribution(
             app: "1:1084114691839:android:5e64f2a9f45fa69cc98eca",
             android_artifact_path: 'build/app/outputs/apk/release/app-release.apk',
-            service_credentials_file: "android/app/firebase_login_credentials.json"
+            service_credentials_file: "android/app/firebase_login_credentials.json",
+            testers: "mig.ruiz@gmail.com"
         )
   
     # sh "your_script.sh"

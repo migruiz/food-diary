@@ -12,15 +12,15 @@ jobs:
       - run:
           name: Run Flutter doctor
           command: flutter doctor
-      - run:
-          name: Build the Android version
-          command: flutter build apk --build-number=$CIRCLE_BUILD_NUM
       - ruby/install-deps
       - run:
           name: fastlane
           command: |
             echo $FB_LOGIN_KEY > android/app/firebase_login_credentials.json
+            echo GIT_COMMIT_DESC
             bundle exec fastlane upload_firebase
+          environment:
+            GIT_COMMIT_DESC: $(git log --format=oneline -n 1 $CIRCLE_SHA1)
             
 workflows:
   version: 2

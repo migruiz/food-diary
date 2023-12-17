@@ -37,7 +37,7 @@ workflows:
             branches:
               only: master
 
-      - publish-latest:
+      - upload_firebase:
           requires:
             - build_android
           filters:

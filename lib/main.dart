@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'src/app.dart';
@@ -19,6 +20,15 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  final db = FirebaseFirestore.instance;
+
+  final families = await db.collection("families").get();
+  final docs = families.docs;
+
+  for (var doc in docs) {
+    print("${doc.id} => ${doc.data()}");
+  }
 
   // Run the app and pass in the SettingsController. The app listens to the
   // SettingsController for changes, then passes it further down to the

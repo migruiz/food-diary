@@ -5,14 +5,13 @@ import 'package:food_diary/src/children/ChildrenListState.dart';
 
 /// Displays a list of SampleItems.
 class ChildrenListWidget extends StatelessWidget {
-  static const List<String> items = ["one", "two", "3"];
 
   const ChildrenListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => ChildrenCubit(),
+      create: (_) => ChildrenCubit()..load(),
       child: Scaffold(
           appBar: AppBar(
             title: const Text('Children'),
@@ -30,9 +29,9 @@ class ChildrenListWidget extends StatelessWidget {
               } else if (state is LoadedChildrenListState) {
                 return ListView.builder(
                   restorationId: 'sampleItemListView',
-                  itemCount: items.length,
+                  itemCount: state.children.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final item = items[index];
+                    final item = state.children[index];
 
                     return ListTile(
                         title: Text('$item'),

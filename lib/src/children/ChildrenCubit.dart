@@ -7,7 +7,8 @@ class ChildrenCubit extends Cubit<ChildrenListState> {
 
   void load() async {
     final db = FirebaseFirestore.instance;
-    final families = await db.collection("families").get();
-    emit(LoadedChildrenListState(children: []));
+    final children = await db.collection("families").doc("ruizblanco").collection("children").get();
+    final famids= children.docs.map((e) => e.id).toList();
+    emit(LoadedChildrenListState(children: famids));
   }
 }

@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 
 import 'src/app.dart';
@@ -12,23 +12,20 @@ void main() async {
   // Flutter Widgets.
   final settingsController = SettingsController(SettingsService());
 
-  // Load the user's preferred theme while the splash screen is displayed.
-  // This prevents a sudden theme change when the app is first displayed.
-  await settingsController.loadSettings();
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  final db = FirebaseFirestore.instance;
+  // Load the user's preferred theme while the splash screen is displayed.
+  // This prevents a sudden theme change when the app is first displayed.
+  await settingsController.loadSettings();
 
-  final families = await db.collection("families").get();
-  final docs = families.docs;
 
-  for (var doc in docs) {
-    print("${doc.id} => ${doc.data()}");
-  }
+
+  
+
 
   // Run the app and pass in the SettingsController. The app listens to the
   // SettingsController for changes, then passes it further down to the

@@ -3,7 +3,8 @@
 class FoodListItem {
   final String name;
   final String photoUrl;
+  final DateTime lastEaten;
 
-  FoodListItem({required this.name, required this.photoUrl});
+  FoodListItem({required this.name, required this.photoUrl, required this.lastEaten});
 
 }

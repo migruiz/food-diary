@@ -30,7 +30,11 @@ class ChildFoodSelectionCubit extends Cubit<ChildFoodSelectionState> {
 
     final childFoodsList = childFoods.docs
         .map((f) => f.data())
-        .map((d) => FoodListItem(name: d["name"], photoUrl: d["photoUrl"]))
+        .map((d) => FoodListItem(
+          name: d["name"], 
+          photoUrl: d["photoUrl"], 
+          lastEaten: DateTime.fromMillisecondsSinceEpoch((d["lastEaten"] as Timestamp).millisecondsSinceEpoch )
+          ))
         .toList();
 
     emit(LoadedChildFoodSelectionState(

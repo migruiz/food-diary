@@ -44,7 +44,12 @@ class ChildFoodSelectionWidget extends StatelessWidget {
                         final item = state.foods[index];
 
                         return ListTile(
-                            title: Text(item.name),
+                            title: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(item.name),
+                                  Text('Last Eaten: 3 days ago'),
+                                ]),
                             leading: CircleAvatar(
                               backgroundImage: NetworkImage(item.photoUrl),
                             ),

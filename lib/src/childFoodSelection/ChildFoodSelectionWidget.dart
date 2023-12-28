@@ -31,10 +31,26 @@ class ChildFoodSelectionWidget extends StatelessWidget {
                         CircleAvatar(
                           backgroundImage: NetworkImage(state.childPhotoUrl),
                         ),
-                        Padding(padding: const EdgeInsets.only(left: 20), child: Text(state.childName),),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Text(state.childName),
+                        ),
                       ],
                     )),
-                    body: Container());
+                    body: ListView.builder(
+                      restorationId: 'foodsItemListView',
+                      itemCount: state.foods.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final item = state.foods[index];
+
+                        return ListTile(
+                            title: Text(item.name),
+                            leading: CircleAvatar(
+                              backgroundImage: NetworkImage(item.photoUrl),
+                            ),
+                            onTap: () async {});
+                      },
+                    ));
               }
             default:
               throw Exception(state);

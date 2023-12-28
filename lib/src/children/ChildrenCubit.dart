@@ -14,8 +14,8 @@ class ChildrenCubit extends Cubit<ChildrenListState> {
         .collection("children")
         .get();
     final childrenInfoList = children.docs
-        .map((d) => d.data())
-        .map((e) => ChildInfoListItem(name: e["name"], photoUrl: e["photoUrl"]))
+        .map((d) => ( id: d.id, data: d.data()))
+        .map((e) => ChildInfoListItem(name: e.data["name"], photoUrl: e.data["photoUrl"], id: e.id))
         .toList();
     emit(LoadedChildrenListState(children: childrenInfoList));
   }

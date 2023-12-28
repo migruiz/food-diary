@@ -8,13 +8,11 @@ import 'ChildFoodSelectionState.dart';
 
 /// Displays a list of SampleItems.
 class ChildFoodSelectionWidget extends StatelessWidget {
-  const ChildFoodSelectionWidget({super.key});
+  final String childId;
+  const ChildFoodSelectionWidget({super.key, required this.childId});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChildFoodSelectionCubit, ChildFoodSelectionState>(
-        builder: (context, state) {
-          return Container();
-        });
+    return Text(childId);
   }
 }

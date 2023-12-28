@@ -20,15 +20,20 @@ class ChildFoodSelectionWidget extends StatelessWidget {
           switch (state) {
             case LoadingChildFoodSelectionState():
               {
-                return const Scaffold(
-                    body: Text("Loading..."));
+                return const Scaffold(body: Text("Loading..."));
               }
             case LoadedChildFoodSelectionState():
               {
                 return Scaffold(
                     appBar: AppBar(
-                      title: Text(state.childName),
-                    ),
+                        title: Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(state.childPhotoUrl),
+                        ),
+                        Padding(padding: const EdgeInsets.only(left: 20), child: Text(state.childName),),
+                      ],
+                    )),
                     body: Container());
               }
             default:

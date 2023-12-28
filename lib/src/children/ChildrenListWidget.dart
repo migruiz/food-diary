@@ -14,13 +14,7 @@ class ChildrenListWidget extends StatelessWidget {
       create: (_) => ChildrenCubit()..load(),
       child: Scaffold(
           appBar: AppBar(
-            title: const Text('Children'),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.settings),
-                onPressed: () {},
-              ),
-            ],
+            title: const Text('Children')
           ),
           body: BlocBuilder<ChildrenCubit, ChildrenListState>(
             builder: (context, state) {

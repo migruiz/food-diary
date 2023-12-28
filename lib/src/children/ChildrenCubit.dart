@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_diary/src/children/ChildInfoListItem.dart';
 import 'package:food_diary/src/children/ChildrenListState.dart';
 
 class ChildrenCubit extends Cubit<ChildrenListState> {
@@ -12,10 +13,10 @@ class ChildrenCubit extends Cubit<ChildrenListState> {
         .doc("ruizblanco")
         .collection("children")
         .get();
-    final famids = children.docs
+    final childrenInfoList = children.docs
         .map((d) => d.data())
-        .map((e) => e["name"] as String)
+        .map((e) => ChildInfoListItem(name: e["name"], photoUrl: e["photoUrl"]))
         .toList();
-    emit(LoadedChildrenListState(children: famids));
+    emit(LoadedChildrenListState(children: childrenInfoList));
   }
 }

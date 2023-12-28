@@ -5,7 +5,6 @@ import 'package:food_diary/src/children/ChildrenListState.dart';
 
 /// Displays a list of SampleItems.
 class ChildrenListWidget extends StatelessWidget {
-
   const ChildrenListWidget({super.key});
 
   @override
@@ -34,10 +33,9 @@ class ChildrenListWidget extends StatelessWidget {
                     final item = state.children[index];
 
                     return ListTile(
-                        title: Text('$item'),
-                        leading: const CircleAvatar(
-                          foregroundImage:
-                              AssetImage('assets/images/flutter_logo.png'),
+                        title: Text(item.name),
+                        leading: CircleAvatar(
+                          backgroundImage: NetworkImage(item.photoUrl),
                         ),
                         onTap: () {});
                   },

@@ -13,6 +13,27 @@ class ChildFoodSelectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(childId);
+    return BlocProvider(
+        create: (_) => ChildFoodSelectionCubit()..load(childId: childId),
+        child: BlocBuilder<ChildFoodSelectionCubit, ChildFoodSelectionState>(
+            builder: (context, state) {
+          switch (state) {
+            case LoadingChildFoodSelectionState():
+              {
+                return const Scaffold(
+                    body: Text("Loading..."));
+              }
+            case LoadedChildFoodSelectionState():
+              {
+                return Scaffold(
+                    appBar: AppBar(
+                      title: Text(state.childName),
+                    ),
+                    body: Container());
+              }
+            default:
+              throw Exception(state);
+          }
+        }));
   }
 }

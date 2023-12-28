@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_diary/src/childFoodSelection/FoodListItem.dart';
 
 import 'ChildFoodSelectionCubit.dart';
 import 'ChildFoodSelectionState.dart';
@@ -10,6 +11,59 @@ import 'ChildFoodSelectionState.dart';
 class ChildFoodSelectionWidget extends StatelessWidget {
   final String childId;
   const ChildFoodSelectionWidget({super.key, required this.childId});
+
+  Future<bool> _showConfirmFood(BuildContext context,
+      {required String childName,
+      required childPhotoUrl,
+      required FoodListItem food}) async {
+    final confirmResult = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(childPhotoUrl),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(food.photoUrl),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Text('$childName just had ${food.name}'),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('YES'),
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+            ),
+            TextButton(
+              child: const Text('NO'),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+          ],
+        );
+      },
+    );
+    return confirmResult == true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +102,18 @@ class ChildFoodSelectionWidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(item.name),
-                                  Text('Last Eaten: ${item.daysSinceEaten} days ago'),
+                                  Text(
+                                      'Last Eaten: ${item.daysSinceEaten} days ago'),
                                 ]),
                             leading: CircleAvatar(
                               backgroundImage: NetworkImage(item.photoUrl),
                             ),
-                            onTap: () async {});
+                            onTap: () async {
+                              final result = await _showConfirmFood(context,
+                                  childPhotoUrl: state.childPhotoUrl,
+                                  childName: state.childName,
+                                  food: item);
+                            });
                       },
                     ));
               }

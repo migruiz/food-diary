@@ -42,6 +42,22 @@ class ChildFoodSelectionWidget extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 20),
                   child: Text('$childName just had ${food.name}'),
                 ),
+                Row(
+                  children: [
+                    DropdownButton<String>(
+      value: "dropdownValue",
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurple),
+      onChanged: (String? value) {
+        
+      },
+      items: [DropdownMenuItem<String>(
+          value: "dropdownValue",
+          child: Text("Now"),
+        )],
+    )
+                  ],
+                )
               ],
             ),
           ),

@@ -7,6 +7,22 @@ import 'ChildFoodSelectionState.dart';
 class ChildFoodSelectionCubit extends Cubit<ChildFoodSelectionState> {
   ChildFoodSelectionCubit() : super(LoadingChildFoodSelectionState());
 
+  void confirmFoodEaten(
+      {required String childId, required String foodId}) async {
+    final db = FirebaseFirestore.instance;
+
+    await db
+        .collection("families")
+        .doc("ruizblanco")
+        .collection("children")
+        .doc(childId)
+        .collection("foods")
+        .doc(foodId)
+        .update({"lastEaten": Timestamp.fromDate(DateTime.now())});
+
+    load(childId: childId);
+  }
+
   void load({required String childId}) async {
     final db = FirebaseFirestore.instance;
     final childFuture = db
@@ -29,12 +45,13 @@ class ChildFoodSelectionCubit extends Cubit<ChildFoodSelectionState> {
     final childData = child.data()!;
 
     final childFoodsList = childFoods.docs
-        .map((f) => f.data())
+        .map((f) => (id: f.id, data: f.data()))
         .map((d) => FoodListItem(
-          name: d["name"], 
-          photoUrl: d["photoUrl"], 
-          lastEaten: DateTime.fromMillisecondsSinceEpoch((d["lastEaten"] as Timestamp).millisecondsSinceEpoch )
-          ))
+            id: d.id,
+            name: d.data["name"],
+            photoUrl: d.data["photoUrl"],
+            lastEaten: DateTime.fromMillisecondsSinceEpoch(
+                (d.data["lastEaten"] as Timestamp).millisecondsSinceEpoch)))
         .toList();
 
     emit(LoadedChildFoodSelectionState(

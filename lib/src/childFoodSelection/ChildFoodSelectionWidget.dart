@@ -71,6 +71,7 @@ class ChildFoodSelectionWidget extends StatelessWidget {
         create: (_) => ChildFoodSelectionCubit()..load(childId: childId),
         child: BlocBuilder<ChildFoodSelectionCubit, ChildFoodSelectionState>(
             builder: (context, state) {
+               final bloc = BlocProvider.of<ChildFoodSelectionCubit>(context);
           switch (state) {
             case LoadingChildFoodSelectionState():
               {
@@ -113,6 +114,9 @@ class ChildFoodSelectionWidget extends StatelessWidget {
                                   childPhotoUrl: state.childPhotoUrl,
                                   childName: state.childName,
                                   food: item);
+                                  if (result){
+                                   bloc.confirmFoodEaten(childId: childId, foodId: item.id);
+                                  }
                             });
                       },
                     ));

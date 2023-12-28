@@ -48,7 +48,7 @@ class ChildFoodSelectionWidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(item.name),
-                                  Text('Last Eaten: 3 days ago'),
+                                  Text('Last Eaten: ${item.daysSinceEaten} days ago'),
                                 ]),
                             leading: CircleAvatar(
                               backgroundImage: NetworkImage(item.photoUrl),

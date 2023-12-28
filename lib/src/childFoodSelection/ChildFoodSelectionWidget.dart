@@ -1,9 +1,12 @@
 // ignore_for_file: file_names
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_diary/src/childFoodSelection/FoodListItem.dart';
 
+import 'ChildFoodConfirmationDialog.dart';
 import 'ChildFoodSelectionCubit.dart';
 import 'ChildFoodSelectionState.dart';
 
@@ -20,62 +23,7 @@ class ChildFoodSelectionWidget extends StatelessWidget {
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Confirm'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(childPhotoUrl),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(food.photoUrl),
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Text('$childName just had ${food.name}'),
-                ),
-                Row(
-                  children: [
-                    DropdownButton<String>(
-      value: "dropdownValue",
-      elevation: 16,
-      style: const TextStyle(color: Colors.deepPurple),
-      onChanged: (String? value) {
-        
-      },
-      items: [DropdownMenuItem<String>(
-          value: "dropdownValue",
-          child: Text("Now"),
-        )],
-    )
-                  ],
-                )
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('YES'),
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-            ),
-            TextButton(
-              child: const Text('NO'),
-              onPressed: () {
-                Navigator.of(context).pop(false);
-              },
-            ),
-          ],
-        );
+        return ChildFoodConfirmationDialog(childName:childName, childPhotoUrl:childPhotoUrl, food: food);
       },
     );
     return confirmResult == true;
@@ -87,7 +35,7 @@ class ChildFoodSelectionWidget extends StatelessWidget {
         create: (_) => ChildFoodSelectionCubit()..load(childId: childId),
         child: BlocBuilder<ChildFoodSelectionCubit, ChildFoodSelectionState>(
             builder: (context, state) {
-               final bloc = BlocProvider.of<ChildFoodSelectionCubit>(context);
+          final bloc = BlocProvider.of<ChildFoodSelectionCubit>(context);
           switch (state) {
             case LoadingChildFoodSelectionState():
               {
@@ -130,9 +78,10 @@ class ChildFoodSelectionWidget extends StatelessWidget {
                                   childPhotoUrl: state.childPhotoUrl,
                                   childName: state.childName,
                                   food: item);
-                                  if (result){
-                                   bloc.confirmFoodEaten(childId: childId, foodId: item.id);
-                                  }
+                              if (result) {
+                                bloc.confirmFoodEaten(
+                                    childId: childId, foodId: item.id);
+                              }
                             });
                       },
                     ));

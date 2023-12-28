@@ -24,20 +24,12 @@ class ChildFoodConfirmationDialog extends StatelessWidget {
                       backgroundImage: NetworkImage(childPhotoUrl),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 10),
+                      padding: const EdgeInsets.only(left: 10, right: 10),
                       child: CircleAvatar(
                         backgroundImage: NetworkImage(food.photoUrl),
                       ),
                     ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Text('$childName just had ${food.name}'),
-                ),
-                Row(
-                  children: [
-                    DropdownButton(
+                                        DropdownButton(
                       value: 0,
                       elevation: 16,
                       onChanged: (int? value) {},
@@ -61,6 +53,11 @@ class ChildFoodConfirmationDialog extends StatelessWidget {
                       ],
                     )
                   ],
+                )
+              ,
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Text('$childName just had ${food.name}'),
                 )
               ],
             ),

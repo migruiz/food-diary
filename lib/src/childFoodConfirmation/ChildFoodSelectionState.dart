@@ -12,7 +12,7 @@ class DaySelected {
     DaySelected(dayDelta: 0, description: "Now"),
     DaySelected(dayDelta: -1, description: "Yesterday"),
     ...[-2, -3, -4, -5, -6, -7, -8, -9, -10]
-        .map((e) => DaySelected(dayDelta: e, description: "$e days ago"))
+        .map((e) => DaySelected(dayDelta: e, description: "${-1 * e} days ago"))
   ];
 
   DaySelected({required this.dayDelta, required this.description});

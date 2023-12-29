@@ -54,6 +54,7 @@ class ChildFoodSelectionCubit extends Cubit<ChildFoodSelectionState> {
             lastEaten: DateTime.fromMillisecondsSinceEpoch(
                 (d.data["lastEaten"] as Timestamp).millisecondsSinceEpoch)))
         .toList();
+        childFoodsList.sort((a, b) => a.name.compareTo(b.name));
 
     emit(LoadedChildFoodSelectionState(
         childName: childData["name"],

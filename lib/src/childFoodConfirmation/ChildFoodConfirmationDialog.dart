@@ -59,7 +59,7 @@ class ChildFoodConfirmationDialog extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
-                    child: Text('$childName just had ${food.name}'),
+                    child: Text(state.getDescription(childName: childName, foodName: food.name)),
                   )
                 ],
               ),

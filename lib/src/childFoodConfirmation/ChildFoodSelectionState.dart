@@ -3,6 +3,17 @@
 class ChildFoodConfirmationState {
   final DaySelected daySelected;
   ChildFoodConfirmationState({required this.daySelected});
+
+  String getDescription({required String childName, required String foodName}) {
+    switch (daySelected.dayDelta) {
+      case 0:
+        return "$childName just had $foodName";
+      case -1:
+        return "$childName had $foodName Yesterday";
+      default:
+        return "$childName had $foodName ${-1 * daySelected.dayDelta} days ago";
+    }
+  }
 }
 
 class DaySelected {

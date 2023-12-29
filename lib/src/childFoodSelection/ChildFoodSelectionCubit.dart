@@ -51,6 +51,7 @@ class ChildFoodSelectionCubit extends Cubit<ChildFoodSelectionState> {
             id: d.id,
             name: d.data["name"],
             photoUrl: d.data["photoUrl"],
+            daysAfterAlarm: d.data["daysAfterAlarm"],
             lastEaten: DateTime.fromMillisecondsSinceEpoch(
                 (d.data["lastEaten"] as Timestamp).millisecondsSinceEpoch)))
         .toList();

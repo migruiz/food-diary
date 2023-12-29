@@ -5,6 +5,7 @@ class FoodListItem {
   final String name;
   final String photoUrl;
   final DateTime lastEaten;
+  final int daysAfterAlarm;
 
   int get daysSinceEaten{
     return DateTime.now().difference(lastEaten).inDays;
@@ -21,6 +22,6 @@ class FoodListItem {
     }
   }
 
-  FoodListItem({required this.id, required this.name, required this.photoUrl, required this.lastEaten});
+  FoodListItem( {required this.id, required this.name, required this.photoUrl, required this.lastEaten, required this.daysAfterAlarm});
 
 }

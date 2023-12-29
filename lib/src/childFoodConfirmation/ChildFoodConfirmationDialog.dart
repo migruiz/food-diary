@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'FoodListItem.dart';
+import '../childFoodSelection/FoodListItem.dart';
 
 class ChildFoodConfirmationDialog extends StatelessWidget {
   final String childName;

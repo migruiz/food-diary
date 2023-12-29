@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_diary/src/childFoodSelection/FoodListItem.dart';
 
-import 'ChildFoodConfirmationDialog.dart';
+import '../childFoodConfirmation/ChildFoodConfirmationDialog.dart';
 import 'ChildFoodSelectionCubit.dart';
 import 'ChildFoodSelectionState.dart';
 

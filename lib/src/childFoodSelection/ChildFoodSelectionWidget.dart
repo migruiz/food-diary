@@ -23,7 +23,8 @@ class ChildFoodSelectionWidget extends StatelessWidget {
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        return ChildFoodConfirmationDialog(childName:childName, childPhotoUrl:childPhotoUrl, food: food);
+        return ChildFoodConfirmationDialog(
+            childName: childName, childPhotoUrl: childPhotoUrl, food: food);
       },
     );
     return confirmResult;
@@ -67,7 +68,12 @@ class ChildFoodSelectionWidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(item.name),
-                                  Text(item.lastEatenDescription),
+                                  Text(
+                                    item.lastEatenDescription,
+                                    style: item.alarmed
+                                        ? const TextStyle(color: Colors.red)
+                                        : null,
+                                  )
                                 ]),
                             leading: CircleAvatar(
                               backgroundImage: NetworkImage(item.photoUrl),
@@ -77,9 +83,11 @@ class ChildFoodSelectionWidget extends StatelessWidget {
                                   childPhotoUrl: state.childPhotoUrl,
                                   childName: state.childName,
                                   food: item);
-                              if (daysDelta!=null) {
+                              if (daysDelta != null) {
                                 bloc.confirmFoodEaten(
-                                    childId: childId, foodId: item.id, daysDelta: daysDelta);
+                                    childId: childId,
+                                    foodId: item.id,
+                                    daysDelta: daysDelta);
                               }
                             });
                       },

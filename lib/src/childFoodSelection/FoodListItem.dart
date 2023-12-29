@@ -7,21 +7,34 @@ class FoodListItem {
   final DateTime lastEaten;
   final int daysAfterAlarm;
 
-  int get daysSinceEaten{
+  bool get alarmed {
+    return daysSinceEaten >= daysAfterAlarm;
+  }
+
+  int get daysSinceEaten {
     return DateTime.now().difference(lastEaten).inDays;
   }
-  String get lastEatenDescription{
+
+  String get lastEatenDescription {
     final now = DateTime.now();
-    final lastEatenStartOfDay = DateTime(lastEaten.year, lastEaten.month, lastEaten.day);
+    final lastEatenStartOfDay =
+        DateTime(lastEaten.year, lastEaten.month, lastEaten.day);
     final secondsDifference = now.difference(lastEatenStartOfDay).inSeconds;
     final daysElapsed = secondsDifference ~/ (24 * 60 * 60);
     switch (daysElapsed) {
-      case 0: return "Today";
-      case 1: return "Yesterday";
-      default: return "$daysElapsed days ago";
+      case 0:
+        return "Today";
+      case 1:
+        return "Yesterday";
+      default:
+        return "$daysElapsed days ago";
     }
   }
 
-  FoodListItem( {required this.id, required this.name, required this.photoUrl, required this.lastEaten, required this.daysAfterAlarm});
-
+  FoodListItem(
+      {required this.id,
+      required this.name,
+      required this.photoUrl,
+      required this.lastEaten,
+      required this.daysAfterAlarm});
 }

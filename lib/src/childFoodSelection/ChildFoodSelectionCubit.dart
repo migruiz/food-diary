@@ -8,8 +8,9 @@ class ChildFoodSelectionCubit extends Cubit<ChildFoodSelectionState> {
   ChildFoodSelectionCubit() : super(LoadingChildFoodSelectionState());
 
   void confirmFoodEaten(
-      {required String childId, required String foodId}) async {
+      {required String childId, required String foodId, required int daysDelta}) async {
     final db = FirebaseFirestore.instance;
+    final lastEaten = DateTime.now().add(Duration(days: daysDelta));
 
     await db
         .collection("families")
@@ -18,7 +19,7 @@ class ChildFoodSelectionCubit extends Cubit<ChildFoodSelectionState> {
         .doc(childId)
         .collection("foods")
         .doc(foodId)
-        .update({"lastEaten": Timestamp.fromDate(DateTime.now())});
+        .update({"lastEaten": Timestamp.fromDate(lastEaten)});
 
     load(childId: childId);
   }

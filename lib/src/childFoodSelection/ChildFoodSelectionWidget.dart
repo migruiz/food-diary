@@ -15,18 +15,18 @@ class ChildFoodSelectionWidget extends StatelessWidget {
   final String childId;
   const ChildFoodSelectionWidget({super.key, required this.childId});
 
-  Future<bool> _showConfirmFood(BuildContext context,
+  Future<int?> _showConfirmFood(BuildContext context,
       {required String childName,
       required childPhotoUrl,
       required FoodListItem food}) async {
-    final confirmResult = await showDialog<bool>(
+    final confirmResult = await showDialog<int?>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return ChildFoodConfirmationDialog(childName:childName, childPhotoUrl:childPhotoUrl, food: food);
       },
     );
-    return confirmResult == true;
+    return confirmResult;
   }
 
   @override
@@ -74,13 +74,13 @@ class ChildFoodSelectionWidget extends StatelessWidget {
                               backgroundImage: NetworkImage(item.photoUrl),
                             ),
                             onTap: () async {
-                              final result = await _showConfirmFood(context,
+                              final daysDelta = await _showConfirmFood(context,
                                   childPhotoUrl: state.childPhotoUrl,
                                   childName: state.childName,
                                   food: item);
-                              if (result) {
+                              if (daysDelta!=null) {
                                 bloc.confirmFoodEaten(
-                                    childId: childId, foodId: item.id);
+                                    childId: childId, foodId: item.id, daysDelta: daysDelta);
                               }
                             });
                       },

@@ -68,13 +68,13 @@ class ChildFoodConfirmationDialog extends StatelessWidget {
               TextButton(
                 child: const Text('YES'),
                 onPressed: () {
-                  Navigator.of(context).pop(true);
+                  Navigator.of(context).pop(state.daySelected.dayDelta);
                 },
               ),
               TextButton(
                 child: const Text('NO'),
                 onPressed: () {
-                  Navigator.of(context).pop(false);
+                  Navigator.of(context).pop(null);
                 },
               ),
             ],

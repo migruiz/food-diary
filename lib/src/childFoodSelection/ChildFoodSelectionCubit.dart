@@ -10,7 +10,9 @@ class ChildFoodSelectionCubit extends Cubit<ChildFoodSelectionState> {
   ChildFoodSelectionCubit() : super(LoadingChildFoodSelectionState());
 
   void confirmFoodEaten(
-      {required String childId, required String foodId, required int daysDelta}) async {
+      {required String childId,
+      required String foodId,
+      required int daysDelta}) async {
     final db = FirebaseFirestore.instance;
     final lastEaten = DateTime.now().add(Duration(days: daysDelta));
 
@@ -57,11 +59,21 @@ class ChildFoodSelectionCubit extends Cubit<ChildFoodSelectionState> {
             lastEaten: DateTime.fromMillisecondsSinceEpoch(
                 (d.data["lastEaten"] as Timestamp).millisecondsSinceEpoch)))
         .toList();
-        childFoodsList.sort((a, b) => a.name.compareTo(b.name));
+
+    for (var element in childFoodsList) {
+      element.setCalculatedFields();
+    }
+    final alarmedItems =
+        childFoodsList.where((element) => element.alarmed).toList();
+    final notAlarmedItems =
+        childFoodsList.where((element) => !element.alarmed).toList();
+    alarmedItems.sort((a, b) => a.name.compareTo(b.name));
+    notAlarmedItems.sort((a, b) => a.name.compareTo(b.name));
+    final sortedItems = [...alarmedItems, ...notAlarmedItems];
 
     emit(LoadedChildFoodSelectionState(
         childName: childData["name"],
         childPhotoUrl: childData["photoUrl"],
-        foods: childFoodsList));
+        foods: sortedItems));
   }
 }

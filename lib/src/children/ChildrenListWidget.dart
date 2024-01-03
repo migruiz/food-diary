@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_diary/src/childFoodSelection/ChildFoodSelectionWidget.dart';
@@ -35,7 +37,7 @@ class ChildrenListWidget extends StatelessWidget {
                         onTap: () async{
 
 
-                      final result = await Navigator.push(context,
+                      await Navigator.push(context,
                                         MaterialPageRoute(
                                             builder: (BuildContext context) => ChildFoodSelectionWidget(childId: item.id)));
                                     

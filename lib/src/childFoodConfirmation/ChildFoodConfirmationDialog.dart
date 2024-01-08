@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_diary/src/childFoodConfirmation/ChildFoodSelectionState.dart';
@@ -33,22 +34,32 @@ class ChildFoodConfirmationDialog extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     children: [
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(childPhotoUrl),
-                      ),
+                      ClipOval(
+                          child: CachedNetworkImage(
+                        width: 56.00,
+                        height: 56.00,
+                        fit: BoxFit.cover,
+                        imageUrl: childPhotoUrl,
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      )),
                       Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: CircleAvatar(
-                          backgroundImage: NetworkImage(food.photoUrl),
-                        ),
+                        child: ClipOval(
+                            child: CachedNetworkImage(
+                          width: 56.00,
+                          height: 56.00,
+                          fit: BoxFit.cover,
+                          imageUrl: food.photoUrl,
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                        )),
                       ),
                       DropdownButton(
                           value: state.daySelected.dayDelta,
                           elevation: 16,
                           onChanged: (int? value) {
-
                             bloc.changeDay(dayDelta: value!);
-
                           },
                           items: DaySelected.options
                               .map((e) => DropdownMenuItem(
@@ -59,7 +70,11 @@ class ChildFoodConfirmationDialog extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
-                    child: Text(state.getDescription(childName: childName, foodName: food.name)),
+                    child: Text(
+                        state.getDescription(
+                            childName: childName, foodName: food.name),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18)),
                   )
                 ],
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_diary/src/children/ChildrenListWidget.dart';
+
+import 'children/ChildrenListWidgetStateful.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
           restorationScopeId: 'app',
           theme: ThemeData(),
           darkTheme: ThemeData.dark(),
-          home: const ChildrenListWidget(),
+          home: const ChildrenListWidgetStateful(),
 
 
         );

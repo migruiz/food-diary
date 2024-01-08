@@ -3,9 +3,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:food_diary/src/childFoodSelection/ChildFoodSelectionWidget.dart';
 import 'package:food_diary/src/children/ChildrenCubit.dart';
 import 'package:food_diary/src/children/ChildrenListState.dart';
+
+import '../childFoodSelection/ChildFoodSelectionWidgetStateful.dart';
 
 /// Displays a list of SampleItems.
 class ChildrenListWidget extends StatelessWidget {
@@ -47,7 +48,7 @@ class ChildrenListWidget extends StatelessWidget {
 
                       await Navigator.push(context,
                                         MaterialPageRoute(
-                                            builder: (BuildContext context) => ChildFoodSelectionWidget(childId: item.id)));
+                                            builder: (BuildContext context) => ChildFoodSelectionWidgetStateful(childId: item.id)));
                                     
 
 

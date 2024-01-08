@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_diary/src/childFoodSelection/ChildFoodSelectionWidget.dart';
@@ -31,9 +32,17 @@ class ChildrenListWidget extends StatelessWidget {
 
                     return ListTile(
                         title: Text(item.name),
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(item.photoUrl),
-                        ),
+                        leading: ClipOval(
+                            child: CachedNetworkImage(
+                          width: 56.00,
+                          height: 56.00,
+                          fit: BoxFit.cover,
+                          imageUrl: item.photoUrl,
+                          placeholder: (context, url) =>
+                              const Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                        )),
                         onTap: () async{
 
 

@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_diary/src/childFoodSelection/FoodListItem.dart';
@@ -47,9 +47,17 @@ class ChildFoodSelectionWidget extends StatelessWidget {
                     appBar: AppBar(
                         title: Row(
                       children: [
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(state.childPhotoUrl),
-                        ),
+                        ClipOval(
+                            child: CachedNetworkImage(
+                          width: 56.00,
+                          height: 56.00,
+                          fit: BoxFit.cover,
+                          imageUrl: state.childPhotoUrl,
+                          placeholder: (context, url) =>
+                              const Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                        )),
                         Padding(
                           padding: const EdgeInsets.only(left: 20),
                           child: Text(state.childName),
@@ -62,11 +70,14 @@ class ChildFoodSelectionWidget extends StatelessWidget {
                       itemBuilder: (BuildContext context, int index) {
                         final item = state.foods[index];
 
-                        return ListTile(
+                        return Padding(padding: const EdgeInsets.only(top: 10),
+                        child: ListTile(
                             title: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(item.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+                                  Text(item.name,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold)),
                                   Text(
                                     item.lastEatenDescription,
                                     style: item.alarmed
@@ -74,9 +85,18 @@ class ChildFoodSelectionWidget extends StatelessWidget {
                                         : null,
                                   )
                                 ]),
-                            leading: CircleAvatar(
-                              backgroundImage: NetworkImage(item.photoUrl),
-                            ),
+                            leading: ClipOval(
+                                child: CachedNetworkImage(
+                              width: 56.00,
+                              height: 56.00,
+                              fit: BoxFit.cover,
+                              imageUrl: item.photoUrl,
+                              placeholder: (context, url) => const Center(
+                                  child: CircularProgressIndicator()),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                            )),
+                            trailing: Text(item.eatAgainDescription),
                             onTap: () async {
                               final daysDelta = await _showConfirmFood(context,
                                   childPhotoUrl: state.childPhotoUrl,
@@ -88,7 +108,7 @@ class ChildFoodSelectionWidget extends StatelessWidget {
                                     foodId: item.id,
                                     daysDelta: daysDelta);
                               }
-                            });
+                            }));
                       },
                     ));
               }

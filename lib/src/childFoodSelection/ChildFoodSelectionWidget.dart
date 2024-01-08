@@ -53,8 +53,6 @@ class ChildFoodSelectionWidget extends StatelessWidget {
                           height: 56.00,
                           fit: BoxFit.cover,
                           imageUrl: state.childPhotoUrl,
-                          placeholder: (context, url) =>
-                              const Center(child: CircularProgressIndicator()),
                           errorWidget: (context, url, error) =>
                               const Icon(Icons.error),
                         )),
@@ -91,8 +89,6 @@ class ChildFoodSelectionWidget extends StatelessWidget {
                               height: 56.00,
                               fit: BoxFit.cover,
                               imageUrl: item.photoUrl,
-                              placeholder: (context, url) => const Center(
-                                  child: CircularProgressIndicator()),
                               errorWidget: (context, url, error) =>
                                   const Icon(Icons.error),
                             )),

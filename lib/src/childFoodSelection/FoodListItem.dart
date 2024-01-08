@@ -6,7 +6,6 @@ class FoodListItem {
   final String photoUrl;
   final DateTime lastEaten;
   final int daysAfterAlarm;
-  late int eatAgainInDays;
   late bool alarmed;
   late String lastEatenDescription;
   late String eatAgainDescription;
@@ -14,7 +13,6 @@ class FoodListItem {
   void setCalculatedFields() {
     final daysSinceEaten = getDaysSinceEaten();
     alarmed = daysSinceEaten >= daysAfterAlarm;
-    eatAgainInDays = daysAfterAlarm - daysSinceEaten;
     switch (daysSinceEaten) {
       case 0:
         lastEatenDescription = "Today";
@@ -26,6 +24,7 @@ class FoodListItem {
         lastEatenDescription = "$daysSinceEaten days ago";
         break;
     }
+    final eatAgainInDays = daysAfterAlarm - daysSinceEaten;
     if (eatAgainInDays case 0) {
       eatAgainDescription = "Eat Today";
     } else if (eatAgainInDays case 1) {
@@ -35,9 +34,9 @@ class FoodListItem {
     } else if (eatAgainInDays case -1) {
       eatAgainDescription = "Should have eaten Yesterday ";
     } else if (eatAgainInDays < -1) {
-      eatAgainDescription = "Should have eaten ${-1* eatAgainInDays} days ago ";
-    }
-    else{
+      eatAgainDescription =
+          "Should have eaten ${-1 * eatAgainInDays} days ago ";
+    } else {
       eatAgainDescription = eatAgainInDays.toString();
     }
   }

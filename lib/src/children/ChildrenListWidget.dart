@@ -30,7 +30,8 @@ class ChildrenListWidget extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     final item = state.children[index];
 
-                    return ListTile(
+                    return Padding(padding: const EdgeInsets.only(top: 10),
+                    child: ListTile(
                         title: Text(item.name),
                         leading: ClipOval(
                             child: CachedNetworkImage(
@@ -38,8 +39,6 @@ class ChildrenListWidget extends StatelessWidget {
                           height: 56.00,
                           fit: BoxFit.cover,
                           imageUrl: item.photoUrl,
-                          placeholder: (context, url) =>
-                              const Center(child: CircularProgressIndicator()),
                           errorWidget: (context, url, error) =>
                               const Icon(Icons.error),
                         )),
@@ -52,7 +51,7 @@ class ChildrenListWidget extends StatelessWidget {
                                     
 
 
-                        });
+                        }),);
                   },
                 );
               }

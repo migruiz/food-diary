@@ -68,43 +68,51 @@ class ChildFoodSelectionWidget extends StatelessWidget {
                       itemBuilder: (BuildContext context, int index) {
                         final item = state.foods[index];
 
-                        return Padding(padding: const EdgeInsets.only(top: 10),
-                        child: ListTile(
-                            title: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(item.name,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  Text(
-                                    item.lastEatenDescription,
-                                    style: item.alarmed
-                                        ? const TextStyle(color: Colors.red)
-                                        : null,
-                                  )
-                                ]),
-                            leading: ClipOval(
-                                child: CachedNetworkImage(
-                              width: 56.00,
-                              height: 56.00,
-                              fit: BoxFit.cover,
-                              imageUrl: item.photoUrl,
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
-                            )),
-                            trailing: Text(item.eatAgainDescription),
-                            onTap: () async {
-                              final daysDelta = await _showConfirmFood(context,
-                                  childPhotoUrl: state.childPhotoUrl,
-                                  childName: state.childName,
-                                  food: item);
-                              if (daysDelta != null) {
-                                bloc.confirmFoodEaten(
-                                    childId: childId,
-                                    foodId: item.id,
-                                    daysDelta: daysDelta);
-                              }
-                            }));
+                        return Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: ListTile(
+                                title: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(item.name,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold)),
+                                      Text(
+                                        item.lastEatenDescription,
+                                        style: item.alarmed
+                                            ? const TextStyle(color: Colors.red)
+                                            : null,
+                                      )
+                                    ]),
+                                leading: ClipOval(
+                                    child: CachedNetworkImage(
+                                  width: 56.00,
+                                  height: 56.00,
+                                  fit: BoxFit.cover,
+                                  imageUrl: item.photoUrl,
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
+                                )),
+                                trailing: Text(
+                                  item.eatAgainDescription,
+                                  style: item.alarmed
+                                      ? const TextStyle(color: Colors.red)
+                                      : null,
+                                ),
+                                onTap: () async {
+                                  final daysDelta = await _showConfirmFood(
+                                      context,
+                                      childPhotoUrl: state.childPhotoUrl,
+                                      childName: state.childName,
+                                      food: item);
+                                  if (daysDelta != null) {
+                                    bloc.confirmFoodEaten(
+                                        childId: childId,
+                                        foodId: item.id,
+                                        daysDelta: daysDelta);
+                                  }
+                                }));
                       },
                     ));
               }

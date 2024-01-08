@@ -7,9 +7,7 @@ import 'package:food_diary/src/childFoodSelection/FoodListItem.dart';
 import 'ChildFoodSelectionState.dart';
 
 class ChildFoodSelectionCubit extends Cubit<ChildFoodSelectionState> {
-  ChildFoodSelectionCubit() : super(LoadingChildFoodSelectionState()){
-    print("object");
-  }
+  ChildFoodSelectionCubit() : super(LoadingChildFoodSelectionState());
 
   void confirmFoodEaten(
       {required String childId,

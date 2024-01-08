@@ -8,43 +8,36 @@ class ChildFoodSelectionWidgetStateful extends StatefulWidget {
   final String childId;
   const ChildFoodSelectionWidgetStateful({super.key, required this.childId});
 
-
-
-
-
-  
-
   @override
   State<ChildFoodSelectionWidgetStateful> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<ChildFoodSelectionWidgetStateful>  with WidgetsBindingObserver{
-
-
+class _MyAppState extends State<ChildFoodSelectionWidgetStateful>
+    with WidgetsBindingObserver {
+  String _key = DateTime.now().millisecondsSinceEpoch.toString();
   @override
-  void initState(){
+  void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
   }
 
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     WidgetsBinding.instance.removeObserver(this);
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state==AppLifecycleState.resumed){
+    if (state == AppLifecycleState.resumed) {
       setState(() {
-        
+        _key = DateTime.now().millisecondsSinceEpoch.toString();
       });
     }
   }
 
-  
   @override
   Widget build(BuildContext context) {
-    return ChildFoodSelectionWidget(childId: widget.childId);
+    return ChildFoodSelectionWidget(childId: widget.childId, key: Key(_key));
   }
 }
